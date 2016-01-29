@@ -9,3 +9,15 @@ At the moment they are:
 - Deploying to multiple environments in parallel
 
 Angel uses the AWS SDK for Ruby, which is apparently threadsafe. Use at your own risk.
+
+#### Commands
+
+First define your infrastructure and env vars in YAML. You can then run
+
+````
+angel create staging
+angel deploy staging
+angel setenv staging
+````
+
+
