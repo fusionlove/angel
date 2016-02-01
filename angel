@@ -22,6 +22,8 @@ phase = ARGV[1]
 client = Aws::ElasticBeanstalk::Client.new(region: 'us-east-1')
 env_vars = YAML.load_file(File.join(pwd, "env/#{phase}.yml"))
 infra = YAML.load_file(File.join(pwd, 'infra/infra.yml'))
+mapping = YAML.load_file(File.join(__dir__, 'mapping.yml'))
+
 
 
 
@@ -32,6 +34,11 @@ when 'setenv'
   set_env_vars(client,infra[phase]['environments'],env_vars)
 when 'create'
   create_app_stack(client,infra[phase])
+when 'setconfig'
+  infra[phase]['environments'].each do |env|
+  aws_options = convert_options(mapping,env)
+  update_config(client,env['name'],aws_options)
+end
 else
   puts 'Unrecognised command: '+cmd
 end
