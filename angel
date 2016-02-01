@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'yaml'
+require 'aws-sdk'
+require_relative './angel_support/eb_utils'
+require 'pry'
+
+options = {}
+OptionParser.new do |opt|
+  opt.on('--e ENVIRONMENT') { |o| options[:environment] = o }
+
+end.parse!
+
+pwd = Dir.pwd
+puts ARGV
+puts options
+
+cmd = ARGV[0]
+phase = options[:environment]
+phase = ARGV[1]
+
+client = Aws::ElasticBeanstalk::Client.new(region: 'us-east-1')
+env_vars = YAML.load_file(File.join(pwd, "env/#{phase}.yml"))
+infra = YAML.load_file(File.join(pwd, 'infra/infra.yml'))
+
+
+
+case cmd
+when 'deploy'
+  deploy(infra[phase])
+when 'setenv'
+  set_env_vars(client,infra[phase]['environments'],env_vars)
+when 'create'
+  create_app_stack(client,infra[phase])
+else
+  puts 'Unrecognised command: '+cmd
+end
