@@ -31,7 +31,9 @@ First define your infrastructure and env vars in YAML. You can then run
 angel create staging : creates environment
 angel deploy staging : deploys environment
 angel setenv staging : sets environment variables
-angel setconfig staging
+angel setconfig staging : sets other config options
 ````
+
+These operations should all be idempotent.
 
 
