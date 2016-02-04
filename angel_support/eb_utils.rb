@@ -65,7 +65,7 @@ def set_env_vars(client,environments,variables)
 end
 
 def create_app_stack(client,phase_dict)
-#  create_application(client,phase_dict['name'])
+  create_application(client,phase_dict['name'])
   #create_application_version(client,phase_dict['name'])
   threads = []
   phase_dict['environments'].each do |env|
@@ -117,4 +117,19 @@ def create_application_version(client,app_name)
     auto_create_application: false,
     process: true,
     })
+end
+
+def describe_application(client,phase_dict)
+  threads = []
+
+  phase_dict['environments'].each do |env|
+     threads << Thread.new do
+      puts client.describe_environments(environment_names: [ env['name'] ] ).inspect
+      puts "\r"
+    end
+
+  end
+  threads.each do |t|
+    t.join
+  end
 end

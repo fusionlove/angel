@@ -1,0 +1,6 @@
+queue_url:
+  namespace: aws:elasticbeanstalk:sqsd
+  option_name: WorkerQueueURL
+queue_endpoint:
+  namespace: aws:elasticbeanstalk:sqsd
+  option_name: HttpPath

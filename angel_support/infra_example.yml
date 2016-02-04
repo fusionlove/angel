@@ -1,0 +1,36 @@
+staging:
+  name: Growth-Bot-Staging
+  environments:
+    - name: GrowthBot-approved-S
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_staging_fling_approved
+      queue_endpoint: /fling_approved
+
+    - name: GrowthBot-refling-S
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_staging_refling
+      queue_endpoint: /refling
+
+    - name: GrowthBot-reflinghold-S
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_staging_requeue_refling
+      queue_endpoint: /requeue_refling
+
+
+production:
+  name: Growth-Bot-Production
+  environments:
+    - name: GrowthBot-approved-P
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_production_fling_approved
+      queue_endpoint: /fling_approved
+
+    - name: GrowthBot-refling-P
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_production_refling
+      queue_endpoint: /refling
+
+    - name: GrowthBot-reflinghold-P
+      tier: Worker
+      queue_url: https://sqs.us-east-1.amazonaws.com/436437208668/growth_bot_production_requeue_refling
+      queue_endpoint: /requeue_refling
